@@ -1,0 +1,105 @@
+# ============================================
+# SYSTEM FILES
+# ============================================
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ============================================
+# FRONTEND - Next.js/React (ROOT DIRECTORY)
+# ============================================
+
+# Dependencies
+node_modules/
+node_modules
+
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Next.js build output
+.next/
+out/
+build/
+
+# Production
+dist/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Environment variables (CRITICAL - Never commit!)
+.env
+.env.*
+.env.local
+.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+
+# BUT allow example and production files to be tracked
+!.env.example
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Turbopack
+.turbo
+
+# ============================================
+# MISC
+# ============================================
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Sensitive data (IMPORTANT!)
+config.toml
+**/storage/
+**/logs/
+**/.secrets/
+credentials.json
+secrets.json
+*-secrets.*
+
+# Large files that shouldn't be in git
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.mp3
+*.wav
+*.flac
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+# ============================================
+*.pem
+*.log
