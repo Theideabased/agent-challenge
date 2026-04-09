@@ -92,3 +92,7 @@ pnpm-lock.yaml
 bun.lockb
 /.eliza/.elizadb
 /dist
+
+# large font files
+*.ttc
+aeterna-api/resource/fonts/
