@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  aeterna:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Frontend
+      - "8000:8000"  # Backend API
+    environment:
+      - NODE_ENV=production
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api
+    volumes:
+      - ./api/storage:/app/storage
+      - ./api/storage/tasks:/app/storage/tasks
+      - ./api/storage/cache_videos:/app/storage/cache_videos
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

@@ -1,51 +1,25 @@
-# Git
-.git
-.gitignore
+# Python
+api/.venv
+api/__pycache__
+api/**/__pycache__
+api/**/*.pyc
+api/**/*.pyo
+api/storage
+api/.env
 
 # Node
-node_modules
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+frontend/node_modules
+frontend/.next
+frontend/.env.local
+frontend/.env
 
-# Environment files
-.env.local
-.env.example
-.env.*.local
-.env.*
-
-# Build output
-.mastra/
-dist/
-build/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Documentation
+# Docs / extras
 *.md
-LICENSE
-
-# Docker
-Dockerfile
-.dockerignore
-
-# Temporary files
-*.tmp
-*.temp
-.cache/
-
-# Test files
-coverage/
-.nyc_output/
-*.test.js
-*.spec.js
+!README.md
+*.sh
+*.log
+.git
+.gitignore
+characters/
+assets/
+nos_job_def/
