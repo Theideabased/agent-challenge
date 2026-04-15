@@ -1,0 +1,11 @@
+ElizaReels is a focused, production-ready AI video generator that combines an ElizaOS agent with decentralized GPU rendering to create short-form, narrated videos from a single text prompt.
+
+At a high level, a user provides a topic and the ElizaOS agent performs intelligent analysis: it detects intent, extracts tone and keywords, estimates suitable duration, and recommends a style. The platform then executes a six-phase pipeline — script generation (Gemini), voice synthesis (neural TTS), stock media retrieval (Pixabay), subtitle generation (Whisper), scene composition (MoviePy/FFmpeg), and final rendering — orchestrated so the user sees continuous progress updates in the UI.
+
+ElizaReels is designed for reliability and portability. The backend is built on FastAPI (Python 3.12) with clear task state transitions and resumable operations; the frontend is a modern Next.js app with a minimalist, accessible UI and an HTML5 playback experience. The system supports a CPU-only fallback but also integrates tightly with Nosana for GPU-accelerated rendering (RTX-class nodes) to dramatically reduce render time for final composition jobs.
+
+Security and usability are practical priorities: API keys (Gemini, Pixabay) are stored locally by the browser and injected at runtime; the container injects keys into the config at startup. The repository includes a unified two-stage Dockerfile that builds the standalone Next.js frontend and a slim Python runtime, making deployment to cloud or Nosana straightforward.
+
+For competition judging, ElizaReels emphasizes three strengths: (1) a novel agent-driven content workflow that automates creative decisions; (2) a production-capable backend and frontend with robust error handling and progress observability; and (3) Nosana GPU integration to achieve fast, cost-effective rendering. The result is a practical tool for creators who want high-quality short videos from a single prompt with minimal configuration.
+
+Contact and contribution details are in the repository README and the original documentation preserved in `Description.md`.

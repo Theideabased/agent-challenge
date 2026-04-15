@@ -3,16 +3,21 @@
 # Single container: Next.js frontend (port 3000) + FastAPI backend (port 8080)
 #
 # Build:
-#   docker build -t theideabased/aeterna:latest .
+#   docker build -t seyman101/aeterna:latest .
 #
 # Run locally:
 #   docker run -p 3000:3000 -p 8080:8080 \
 #     -e GEMINI_API_KEY=your_gemini_key \
 #     -e PIXABAY_API_KEY=your_pixabay_key \
-#     theideabased/aeterna:latest
+#     seyman101/aeterna:latest
 #
 # Nosana deployment: see nos_job_def/nosana_eliza_job_definition.json
 # =============================================================================
+
+# -----------------------------------------------------------------------------
+# Stage 0: Static ffmpeg + ffprobe (no apt-get needed)
+# -----------------------------------------------------------------------------
+FROM mwader/static-ffmpeg:7.1 AS ffmpeg-source
 
 # -----------------------------------------------------------------------------
 # Stage 1: Build Next.js frontend
@@ -22,7 +27,7 @@ FROM node:20-slim AS frontend-builder
 WORKDIR /frontend
 
 COPY frontend/package.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY frontend/ ./
 
@@ -34,22 +39,31 @@ RUN npm run build
 # -----------------------------------------------------------------------------
 # Stage 2: Final runtime image
 # Python backend (port 8080) + Next.js frontend (port 3000)
+# Uses pre-built static binaries — NO apt-get required
 # -----------------------------------------------------------------------------
 FROM python:3.12-slim
 
-# System dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ffmpeg \
-    imagemagick \
-    curl \
+# Copy static ffmpeg/ffprobe binaries — bypasses apt-get entirely
+COPY --from=ffmpeg-source /ffmpeg  /usr/local/bin/ffmpeg
+COPY --from=ffmpeg-source /ffprobe /usr/local/bin/ffprobe
+
+# Copy Node.js binary directly from the builder stage — no apt needed
+COPY --from=frontend-builder /usr/local/bin/node               /usr/local/bin/node
+COPY --from=frontend-builder /usr/local/lib/node_modules       /usr/local/lib/node_modules
+COPY --from=frontend-builder /usr/local/include/node           /usr/local/include/node
+
+# Install only gcc/g++ for Python C-extension packages (no ffmpeg/imagemagick needed)
+# Use --fix-missing to tolerate any transient mirror issues
+RUN set -eux; \
+  echo 'Acquire::Retries "3";' > /etc/apt/apt.conf.d/80-retries; \
+  # Try apt-get update a few times to avoid transient hash-sum/mirror issues
+  for i in 1 2 3 4; do apt-get update --fix-missing && break || sleep 3; done; \
+  apt-get install -y --no-install-recommends --fix-missing \
     gcc \
     g++ \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Node.js 20 LTS
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && rm -rf /var/lib/apt/lists/*
+    libmagickwand-dev || (apt-get update --fix-missing && apt-get install -y --no-install-recommends --fix-missing gcc g++ libmagickwand-dev); \
+  rm -rf /var/lib/apt/lists/*; \
+  apt-get clean || true
 
 # Fix ImageMagick policy for MoviePy video operations
 RUN if [ -f /etc/ImageMagick-6/policy.xml ]; then \
