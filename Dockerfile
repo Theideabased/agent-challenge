@@ -52,23 +52,18 @@ COPY --from=frontend-builder /usr/local/bin/node               /usr/local/bin/no
 COPY --from=frontend-builder /usr/local/lib/node_modules       /usr/local/lib/node_modules
 COPY --from=frontend-builder /usr/local/include/node           /usr/local/include/node
 
-# Install only gcc/g++ for Python C-extension packages (no ffmpeg/imagemagick needed)
-# Use --fix-missing to tolerate any transient mirror issues
+# Install only the ImageMagick runtime library (no dev headers — saves ~500MB)
 RUN set -eux; \
-  echo 'Acquire::Retries "3";' > /etc/apt/apt.conf.d/80-retries; \
-  # Try apt-get update a few times to avoid transient hash-sum/mirror issues
-  for i in 1 2 3 4; do apt-get update --fix-missing && break || sleep 3; done; \
-  apt-get install -y --no-install-recommends --fix-missing \
-    gcc \
-    g++ \
-    libmagickwand-dev || (apt-get update --fix-missing && apt-get install -y --no-install-recommends --fix-missing gcc g++ libmagickwand-dev); \
-  rm -rf /var/lib/apt/lists/*; \
-  apt-get clean || true
+    echo 'Acquire::Retries "3";' > /etc/apt/apt.conf.d/80-retries; \
+    for i in 1 2 3 4; do apt-get update --fix-missing && break || sleep 3; done; \
+    apt-get install -y --no-install-recommends --fix-missing libmagickwand-7.q16-10 \
+    || (apt-get update --fix-missing && apt-get install -y --no-install-recommends --fix-missing libmagickwand-7.q16-10); \
+    rm -rf /var/lib/apt/lists/*
 
-# Fix ImageMagick policy for MoviePy video operations
-RUN if [ -f /etc/ImageMagick-6/policy.xml ]; then \
-      sed -i 's/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/' /etc/ImageMagick-6/policy.xml; \
-    fi
+# Fix ImageMagick policy for MoviePy video operations (v6 and v7)
+RUN for f in /etc/ImageMagick-6/policy.xml /etc/ImageMagick-7/policy.xml; do \
+      [ -f "$f" ] && sed -i 's/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/' "$f" || true; \
+    done
 
 WORKDIR /app
 

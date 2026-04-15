@@ -4,10 +4,12 @@ import re
 import requests
 from typing import List
 
-import g4f
 from loguru import logger
 from openai import AzureOpenAI, OpenAI
 from openai.types.chat import ChatCompletion
+
+# g4f is optional — only imported when llm_provider == "g4f"
+g4f = None
 
 from app.config import config
 
@@ -20,10 +22,11 @@ def _generate_response(prompt: str, gemini_api_key: str = "") -> str:
         llm_provider = config.app.get("llm_provider", "openai")
         logger.info(f"llm provider: {llm_provider}")
         if llm_provider == "g4f":
+            import g4f as _g4f  # lazy — avoids pulling torch/heavy deps at startup
             model_name = config.app.get("g4f_model_name", "")
             if not model_name:
                 model_name = "gpt-3.5-turbo-16k-0613"
-            content = g4f.ChatCompletion.create(
+            content = _g4f.ChatCompletion.create(
                 model=model_name,
                 messages=[{"role": "user", "content": prompt}],
             )
