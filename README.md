@@ -7,6 +7,20 @@
 
 ---
 
+## 🌐 Live Deployment
+
+| | Link |
+|--|------|
+| 🚀 **Live App (Nosana GPU)** | [https://4gQ9YfL6ehW9ehu4TTksXpLvgWYsWZt2jNjMbkTiEjAh.node.k8s.prd.nos.ci](https://4gQ9YfL6ehW9ehu4TTksXpLvgWYsWZt2jNjMbkTiEjAh.node.k8s.prd.nos.ci) |
+| 🐦 **X (Twitter) Post** | [https://x.com/SOgunmusire/status/2043982233233490278](https://x.com/SOgunmusire/status/2043982233233490278) |
+| 🐳 **Docker Image** | [docker.io/seyman101/aeterna:latest](https://hub.docker.com/r/seyman101/aeterna) |
+| 💻 **GitHub Repo** | [Theideabased/agent-challenge](https://github.com/Theideabased/agent-challenge) |
+
+> **Note on X/Superteam verification:** The X post for this submission is linked above.  
+> I was unable to complete the X account verification on earn.superteam.fun due to a platform verification issue — the post exists and is public at the link above.
+
+---
+
 ## 🏆 What Is ElizaReels?
 
 **ElizaReels** is a full-stack AI video generation platform that combines the intelligence of an **ElizaOS agent** with the raw power of **Nosana's decentralized GPU network** to create high-quality, AI-narrated short-form videos — all from a single text prompt.
@@ -223,6 +237,17 @@ GET /api/v1/tasks/{task_id}/video/{index}
 ## 📄 License
 
 MIT — see [LICENSE](LICENSE)
+
+---
+
+## 🔗 Submission Links
+
+| | Link |
+|--|------|
+| 🚀 **Live App (Nosana GPU)** | [https://4gQ9YfL6ehW9ehu4TTksXpLvgWYsWZt2jNjMbkTiEjAh.node.k8s.prd.nos.ci](https://4gQ9YfL6ehW9ehu4TTksXpLvgWYsWZt2jNjMbkTiEjAh.node.k8s.prd.nos.ci) |
+| 🐦 **X (Twitter) Post** | [https://x.com/SOgunmusire/status/2043982233233490278](https://x.com/SOgunmusire/status/2043982233233490278) |
+| 🐳 **Docker Image** | [docker.io/seyman101/aeterna:latest](https://hub.docker.com/r/seyman101/aeterna) |
+| 💻 **GitHub Repo** | [Theideabased/agent-challenge](https://github.com/Theideabased/agent-challenge) |
 
 ---
 
