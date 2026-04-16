@@ -8,8 +8,8 @@
         "image": "docker.io/seyman101/aeterna:latest",
         "expose": 3000,
         "env": {
-          "GEMINI_API_KEY": "AIzaSyCdwaGeCD0FdLEK2omJbTA-0ZmyyzxGNI8",
-          "PIXABAY_API_KEY": "54136289-ab4d426a9f61abb1b65af173a",
+          "GEMINI_API_KEY": "",
+          "PIXABAY_API_KEY": "",
           "NODE_ENV": "production",
           "PYTHONUNBUFFERED": "1"
         }
