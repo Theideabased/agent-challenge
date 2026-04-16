@@ -1,0 +1,41 @@
+ElizaReels - AI Video Generation Platform
+==========================================
+
+ElizaReels is an AI-powered video generation platform that combines ElizaOS
+agent intelligence with Nosana's decentralized GPU infrastructure to turn a
+single text prompt into a fully produced short-form video — automatically.
+
+A user types a topic, clicks Generate, and the ElizaOS agent takes over. It
+analyses the prompt across six dimensions: intent, style, tone, keywords,
+duration, and complexity. These insights are then passed into a production
+pipeline that writes a script using Google Gemini, synthesises a voiceover
+with Azure TTS neural voices, fetches matching stock footage from Pixabay,
+generates accurate subtitles with OpenAI Whisper, and composites everything
+into a final MP4 using FFmpeg and MoviePy — all rendered on a Nosana GPU node.
+
+The platform is built on a clean two-layer architecture. The backend is a
+FastAPI Python 3.12 service exposing a task-based REST API with real-time
+progress polling. The frontend is a Next.js 14 application with a minimal
+single-page interface: enter a prompt, watch the six-phase progress bar fill,
+and play the finished video directly in the browser. No account required. No
+dashboard to navigate. Just prompt-to-video in under three minutes.
+
+Everything ships as a single Docker image that starts both services on
+container launch. The image is built with a two-stage Dockerfile — Node 20
+compiles the Next.js standalone bundle, then Python 3.12 slim runs the
+backend alongside it. Environment variables injected at runtime configure the
+Gemini and Pixabay API keys without rebuilding the image, making it a natural
+fit for Nosana's container job model.
+
+By running on Nosana, ElizaReels gets access to affordable, decentralised
+GPU compute. Video composition is CPU/GPU-agnostic by default, but the
+pipeline is ready to offload rendering workloads as GPU-accelerated FFmpeg
+and MoviePy operations on any CUDA-enabled Nosana node.
+
+ElizaReels demonstrates that the combination of ElizaOS agent reasoning and
+Nosana GPU infrastructure can power real creative workloads — not just demos,
+but genuinely useful, end-to-end AI applications running on decentralised
+compute.
+
+Stack: Next.js 14 · FastAPI · Python 3.12 · ElizaOS · Google Gemini ·
+Azure TTS · OpenAI Whisper · MoviePy · FFmpeg · Docker · Nosana GPU

@@ -27,19 +27,6 @@
 
 A user types a topic. The ElizaOS agent analyzes intent, extracts style, tone and keywords, then orchestrates a 6-phase pipeline that writes a script, generates voice, fetches visuals, adds subtitles, and composes the final MP4 — rendered on a Nosana GPU.
 
----
-
-## ✅ Challenge Criteria
-
-| Criterion | Weight | Implementation |
-|-----------|--------|----------------|
-| 🔧 Technical Implementation | 25% | FastAPI + Next.js, ElizaOS 6-phase pipeline, Python 3.12, type-safe services |
-| 🖥️ Nosana Integration | 25% | Full GPU job submission, polling, Docker image deployed on Nosana |
-| 🎯 Usefulness & UX | 25% | One-prompt video generation, real-time progress, HTML5 video player |
-| 💡 Creativity & Originality | 15% | ElizaOS agent orchestration + decentralized GPU + AI video — unique combination |
-| 📚 Documentation | 10% | This README + inline code docs + setup guide |
-
----
 
 ## 🚀 Quick Start
 
