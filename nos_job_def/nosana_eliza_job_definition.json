@@ -1,25 +1,27 @@
 {
+  "version": "0.1",
+  "type": "container",
+  "meta": {
+    "trigger": "dashboard",
+    "system_requirements": {
+      "required_vram": 4
+    }
+  },
   "ops": [
     {
-      "id": "aeterna",
+      "id": "elizareels",
+      "type": "container/run",
       "args": {
-        "image": "theideabased/aeterna:latest",
+        "image": "docker.io/seyman101/aeterna:latest",
+        "gpu": true,
         "expose": 3000,
         "env": {
           "GEMINI_API_KEY": "",
           "PIXABAY_API_KEY": "",
           "NODE_ENV": "production",
           "PYTHONUNBUFFERED": "1"
-        },
-        "resources": {
-          "gpu": true
         }
-      },
-      "execution": {
-        "group": "run"
-      },
-      "type": "container/run"
+      }
     }
-  ],
-  "version": "0.1"
+  ]
 }

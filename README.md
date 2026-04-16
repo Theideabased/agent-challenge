@@ -37,12 +37,12 @@ A user types a topic. The ElizaOS agent analyzes intent, extracts style, tone an
 ### Run with Docker (Recommended)
 
 ```bash
-docker pull theideabased/aeterna:latest
+docker pull seyman101/aeterna:latest
 
 docker run -p 3000:3000 -p 8080:8080 \
   -e GEMINI_API_KEY=your_gemini_key \
   -e PIXABAY_API_KEY=your_pixabay_key \
-  theideabased/aeterna:latest
+  seyman101/aeterna:latest
 ```
 
 Then open **http://localhost:3000**
@@ -131,7 +131,7 @@ This project ships as a **single Docker image** that runs both frontend and back
   "ops": [{
     "id": "aeterna",
     "args": {
-      "image": "theideabased/aeterna:latest",
+      "image": "seyman101/aeterna:latest",
       "expose": 3000,
       "env": {
         "GEMINI_API_KEY": "<your_key>",
@@ -150,8 +150,8 @@ Full definition: [`nos_job_def/nosana_eliza_job_definition.json`](nos_job_def/no
 ### Build & Push
 
 ```bash
-docker build -t theideabased/aeterna:latest .
-docker push theideabased/aeterna:latest
+docker build -t seyman101/aeterna:latest .
+docker push seyman101/aeterna:latest
 ```
 
 ---
