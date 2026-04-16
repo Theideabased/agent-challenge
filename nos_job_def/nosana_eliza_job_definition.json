@@ -1,27 +1,28 @@
 {
-  "version": "0.1",
-  "type": "container",
+  "ops": [
+    {
+      "id": "elizareels",
+      "args": {
+        "cmd": ["/app/start.sh"],
+        "gpu": true,
+        "image": "docker.io/seyman101/aeterna:latest",
+        "expose": 3000,
+        "env": {
+          "GEMINI_API_KEY": "AIzaSyCdwaGeCD0FdLEK2omJbTA-0ZmyyzxGNI8",
+          "PIXABAY_API_KEY": "54136289-ab4d426a9f61abb1b65af173a",
+          "NODE_ENV": "production",
+          "PYTHONUNBUFFERED": "1"
+        }
+      },
+      "type": "container/run"
+    }
+  ],
   "meta": {
     "trigger": "dashboard",
     "system_requirements": {
       "required_vram": 4
     }
   },
-  "ops": [
-    {
-      "id": "elizareels",
-      "type": "container/run",
-      "args": {
-        "image": "docker.io/seyman101/aeterna:latest",
-        "gpu": true,
-        "expose": 3000,
-        "env": {
-          "GEMINI_API_KEY": "",
-          "PIXABAY_API_KEY": "",
-          "NODE_ENV": "production",
-          "PYTHONUNBUFFERED": "1"
-        }
-      }
-    }
-  ]
+  "type": "container",
+  "version": "0.1"
 }
